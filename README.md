@@ -167,9 +167,3 @@ NutriSmart AI is an educational software project, not a medical device. It does 
 - GitHub: [@bhushan1395](https://github.com/bhushan1395)
 
 ---
-
-<div align="center">
-
-**Made with ❤️ using React**
-
-</div>
