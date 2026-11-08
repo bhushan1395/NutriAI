@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🥗 NutriSmart AI
+#  NutriAI
 
 ### Personalized Nutrition & Meal Planning Web Application
 
