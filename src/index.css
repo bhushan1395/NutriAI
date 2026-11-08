@@ -1,0 +1,116 @@
+/* Global CSS Reset & Base Variables for NutriSmart AI */
+:root {
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', var(--font-main);
+
+  /* Primary Palette - Health & Organic Tech */
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --primary-dark: #047857;
+  --primary-light: #ecfdf5;
+  --primary-glow: rgba(16, 185, 129, 0.25);
+
+  /* Secondary & Accents */
+  --accent-orange: #f97316;
+  --accent-amber: #f59e0b;
+  --accent-blue: #3b82f6;
+  --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
+  --accent-rose: #f43f5e;
+
+  /* Surfaces & Neutrals (Light Mode Default) */
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --border-light: #e2e8f0;
+  --border-focus: #10b981;
+  --navbar-bg: rgba(255, 255, 255, 0.94);
+
+  /* Text Colors */
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --text-white: #ffffff;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 14px -1px rgba(0, 0, 0, 0.08), 0 2px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 25px -3px rgba(16, 185, 129, 0.12), 0 4px 12px -4px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 14px 30px -4px rgba(16, 185, 129, 0.15), 0 6px 14px -4px rgba(0, 0, 0, 0.06);
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+  --bg-main: #0a0f1d;
+  --bg-card: #131c2e;
+  --bg-subtle: #1a253c;
+  --border-light: #24324c;
+  --border-focus: #34d399;
+  --navbar-bg: rgba(13, 20, 36, 0.94);
+
+  --primary-light: rgba(16, 185, 129, 0.18);
+  --primary-dark: #34d399;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 18px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 28px -3px rgba(0, 0, 0, 0.6);
+  --shadow-card-hover: 0 14px 30px -4px rgba(16, 185, 129, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+input, select {
+  font-family: inherit;
+  outline: none;
+}
+
+/* Utilities */
+.text-emerald { color: #10b981 !important; }
+[data-theme="dark"] .text-emerald { color: #34d399 !important; }
+.text-amber { color: #f59e0b !important; }
+.text-blue { color: #3b82f6 !important; }
+[data-theme="dark"] .text-blue { color: #60a5fa !important; }
+.text-cyan { color: #06b6d4 !important; }
+.text-purple { color: #8b5cf6 !important; }
+.text-rose { color: #f43f5e !important; }
+.text-muted { color: var(--text-muted) !important; }
+.font-bold { font-weight: 700 !important; }
+.font-semibold { font-weight: 600 !important; }
+.shrink-0 { flex-shrink: 0; }

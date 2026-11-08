@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriSmart AI - 2-Page Project Summary & Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap');
+
+    :root {
+      --primary: #059669;
+      --primary-light: #ecfdf5;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #cbd5e1;
+      --bg-card: #ffffff;
+      --bg-subtle: #f8fafc;
+      --accent-amber: #d97706;
+      --accent-blue: #2563eb;
+      --accent-purple: #7c3aed;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-main);
+      background: #e2e8f0;
+      line-height: 1.45;
+      font-size: 11pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Print Controls Bar (Visible on screen only) */
+    .screen-controls {
+      max-width: 800px;
+      margin: 20px auto 10px auto;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 14px 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    .btn-print {
+      background: #10b981;
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-print:hover {
+      background: #059669;
+    }
+
+    /* Page Container for Print / PDF */
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 14mm 16mm;
+      margin: 15px auto;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+      }
+      .screen-controls {
+        display: none;
+      }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 100vh;
+        page-break-after: always;
+        padding: 10mm 12mm;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+    }
+
+    /* Document Header */
+    .doc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #059669;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18pt;
+      font-weight: 800;
+      color: #059669;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-title span {
+      color: #0f172a;
+    }
+
+    .doc-meta {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-size: 7.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      margin-left: 6px;
+    }
+
+    /* Section Cards */
+    .section-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      background: #ffffff;
+    }
+
+    .section-box.highlight {
+      border-left: 4px solid #059669;
+      background: #fafcfb;
+    }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11.5pt;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-tag {
+      font-size: 8pt;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .section-desc {
+      font-size: 9pt;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .item-bullet {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 5px 8px;
+      font-size: 8.5pt;
+      line-height: 1.35;
+    }
+
+    .item-bullet strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 2px;
+      font-size: 8.5pt;
+    }
+
+    .footer-note {
+      position: absolute;
+      bottom: 8mm;
+      left: 16mm;
+      right: 16mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 8pt;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 4px;
+    }
+
+    /* Mini table styling */
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      margin-top: 4px;
+    }
+
+    .mini-table th, .mini-table td {
+      border: 1px solid #e2e8f0;
+      padding: 4px 6px;
+      text-align: left;
+    }
+
+    .mini-table th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Helper Bar -->
+  <div class="screen-controls">
+    <div>
+      <strong>NutriSmart AI — 2-Page Executive Cheat-Sheet</strong><br>
+      <small style="color: #94a3b8;">Ready to print or save as PDF (A4 2 Pages)</small>
+    </div>
+    <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  </div>
+
+  <!-- ==========================================
+       PAGE 1 of PDF: Overview + Pages 1 to 3
+       ========================================== -->
+  <div class="sheet">
+    <div class="doc-header">
+      <div>
+        <h1 class="brand-title">NutriSmart <span>AI</span></h1>
+        <small style="color: #64748b; font-weight: 600;">Personalized Nutrition & Wellness Platform • React 19 + Vite</small>
+      </div>
+      <div class="doc-meta">
+        <strong>Executive Project Guide</strong><br>
+        Page 1 of 2 <span class="badge-pill">Overview & Pages 1–3</span>
+      </div>
+    </div>
+
+    <!-- Executive Overview Box -->
+    <div class="section-box highlight" style="margin-bottom: 8px;">
+      <div class="section-title-row">
+        <span class="section-title">🌿 Project Overview & Mission</span>
+        <span class="page-tag" style="background:#ecfdf5; color:#059669; font-weight:800;">Core Identity</span>
+      </div>
+      <p class="section-desc">
+        <strong>NutriSmart AI</strong> combines evidence-based nutritional science, AI biometric meal personalization, and visual portion cheat-sheets to make healthy eating effortless, sustainable, and enjoyable. Features full light/dark mode and mobile responsiveness.
+      </p>
+    </div>
+
+    <!-- Page 1: Home -->
+    <div class="section-box">
+      <div class="section-title-row">
+        <span class="section-title">1️⃣ Page 1: Home (Welcome & Visual Spotlight)</span>
+        <span class="page-tag">Route: 'home'</span>
+      </div>
+      <p class="section-desc">The primary entry point that immediately sets the clean, health-focused tone of the brand.</p>
+      <div class="items-grid">
+        <div class="item-bullet">
+          <strong>Left Column (Value Proposition):</strong>
+          Main title: <em>"Personalized Nutrition for a Healthier, Balanced Life"</em> with intro text, CTA buttons (<em>Explore Recipes</em>, <em>AI Meal Planner</em>), and 3 benefit checkmarks.
+        </div>
+        <div class="item-bullet">
+          <strong>Right Column (Visual Salad Bowl):</strong>
+          High-definition colorful salad bowl photo with floating ambient glow and interactive badges: <em>"🥗 Fresh & Wholesome"</em> & <em>"⚡ Balanced Nutrition"</em>.
+        </div>
+        <div class="item-bullet">
+          <strong>3 Feature Highlight Cards:</strong>
+          <em>Wholesome Recipes</em> (nutrient-dense real food), <em>Daily Nutrition Tips</em> (science-backed guidance), and <em>Personalized Wellness</em> (mindful vitality).
+        </div>
+        <div class="item-bullet">
+          <strong>Daily Eating Tip & Recipe Preview:</strong>
+          Interactive wisdom card with copy/save action + preview cards of wholesome recipes with calories and prep times.
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 2: Daily Tips -->
+    <div class="section-box">
+      <div class="section-title-row">
+        <span class="section-title">2️⃣ Page 2: Daily Tips (Nutritional Wisdom Archive)</span>
+        <span class="page-tag">Route: 'tips'</span>
+      </div>
+      <p class="section-desc">Daily micro-habits grounded in metabolic science and clinical research to build sustainable vitality.</p>
+      <div class="items-grid">
+        <div class="item-bullet">
+          <strong>Interactive Real-Time Search:</strong>
+          Search bar allowing instant filtering by keywords like <em>protein, hydration, gut, breakfast, sleep</em>.
+        </div>
+        <div class="item-bullet">
+          <strong>Category Navigation Pills:</strong>
+          Quick filters: <em>Gut Microbiome & Immunity</em>, <em>Metabolism & Energy</em>, <em>Hydration</em>, and <em>Mindful Habits</em>.
+        </div>
+        <div class="item-bullet">
+          <strong>Actionable Tip Cards:</strong>
+          Includes headline, explanation, <em>Science Insight</em> callout, and a clear <strong>Action Step</strong> to implement today.
+        </div>
+        <div class="item-bullet">
+          <strong>Save & Share Controls:</strong>
+          One-click clipboard copy and local browser storage to bookmark favorite daily habits.
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 3: Healthy Recipes -->
+    <div class="section-box">
+      <div class="section-title-row">
+        <span class="section-title">3️⃣ Page 3: Healthy Recipes (Wholesome Recipe Hub)</span>
+        <span class="page-tag">Route: 'recipes'</span>
+      </div>
+      <p class="section-desc">A rich catalog of whole-food recipes designed for balanced macros, great taste, and quick home prep.</p>
+      <div class="items-grid">
+        <div class="item-bullet">
+          <strong>Filter by Goal & Diet:</strong>
+          Filter categories: <em>High Protein</em>, <em>Vegetarian</em>, <em>Low Carb</em>, <em>Heart Healthy</em> + tags for <em>Gluten-Free, Keto, Vegan</em>.
+        </div>
+        <div class="item-bullet">
+          <strong>Nutritional Badges:</strong>
+          Every recipe displays exact Calories (kcal), Protein (g), Carbs (g), Healthy Fats (g), Fiber (g), and Cook Time.
+        </div>
+        <div class="item-bullet">
+          <strong>Recipe Detail Pop-up Modal:</strong>
+          Clicking any card opens a clean modal with full ingredients checklist, step-by-step instructions, and chef tips.
+        </div>
+        <div class="item-bullet">
+          <strong>AI Score Indicator:</strong>
+          Wholesomeness rating (e.g., 98/100) based on real-food ingredient density and absence of ultra-processed additives.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <span>NutriSmart AI • Master Project Architecture</span>
+      <span>Page 1 of 2 • Terminal command: <code>npm run dev</code></span>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       PAGE 2 of PDF: Pages 4 to 6 + Q&A
+       ========================================== -->
+  <div class="sheet">
+    <div class="doc-header">
+      <div>
+        <h1 class="brand-title">NutriSmart <span>AI</span></h1>
+        <small style="color: #64748b; font-weight: 600;">Personalized Nutrition & Wellness Platform • React 19 + Vite</small>
+      </div>
+      <div class="doc-meta">
+        <strong>Executive Project Guide</strong><br>
+        Page 2 of 2 <span class="badge-pill">Pages 4–6 & Key Q&A</span>
+      </div>
+    </div>
+
+    <!-- Page 4: AI Meal Planner -->
+    <div class="section-box">
+      <div class="section-title-row">
+        <span class="section-title">4️⃣ Page 4: AI Meal Planner (Personalized Nutrition Engine)</span>
+        <span class="page-tag">Route: 'planner'</span>
+      </div>
+      <p class="section-desc">Algorithmic meal schedule generator customized to user biometrics and lifestyle targets.</p>
+      <div class="items-grid">
+        <div class="item-bullet">
+          <strong>Biometric Profile Form:</strong>
+          Captures age, gender, height, weight, activity level multiplier, and health goal (<em>Weight Loss, Muscle Building, Maintenance</em>).
+        </div>
+        <div class="item-bullet">
+          <strong>Dietary & Allergy Filters:</strong>
+          Select preferences: <em>Mediterranean</em>, <em>High Protein</em>, <em>Keto</em>, <em>Vegetarian</em>, or <em>Dairy-Free</em>.
+        </div>
+        <div class="item-bullet">
+          <strong>Personalized Day & Weekly Plan:</strong>
+          Calculates targeted calories and macros, then structures Breakfast, Lunch, Dinner, and Snack recommendations.
+        </div>
+        <div class="item-bullet">
+          <strong>Automated Grocery List:</strong>
+          Aggregates ingredients across all generated meals into a printable, categorized weekly shopping checklist.
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 5: Nutrition Tools -->
+    <div class="section-box">
+      <div class="section-title-row">
+        <span class="section-title">5️⃣ Page 5: Nutrition Tools (Calculators & Macro Distribution)</span>
+        <span class="page-tag">Route: 'tools'</span>
+      </div>
+      <p class="section-desc">Fast, scientific calculation tools for personal body metrics and macronutrient balancing.</p>
+      <div class="items-grid">
+        <div class="item-bullet">
+          <strong>Interactive BMI Calculator:</strong>
+          Calculates Body Mass Index with color-coded classification: Underweight, Normal (18.5–24.9), Overweight, Obese.
+        </div>
+        <div class="item-bullet">
+          <strong>BMR & TDEE Target Estimator:</strong>
+          Computes Basal Metabolic Rate and Total Daily Energy Expenditure based on physical activity multipliers.
+        </div>
+        <div class="item-bullet">
+          <strong>4 Macro Distribution Boxes:</strong>
+          Visual breakdown for <em>Proteins (4 kcal/g)</em>, <em>Carbohydrates (4 kcal/g)</em>, <em>Healthy Fats (9 kcal/g)</em>, and <em>Fiber</em>.
+        </div>
+        <div class="item-bullet">
+          <strong>Goal Presets:</strong>
+          One-click macro recalibration for Fat Loss (high protein), Muscle Hypertrophy, or Longevity/Maintenance.
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 6: Nutrition Guide -->
+    <div class="section-box highlight">
+      <div class="section-title-row">
+        <span class="section-title">6️⃣ Page 6: Nutrition Guide (Balanced Diet & Knowledge Hub)</span>
+        <span class="page-tag">Route: 'guide'</span>
+      </div>
+      <p class="section-desc">Comprehensive visual education hub highlighting balanced diet foundations and interactive charts.</p>
+      <div class="items-grid">
+        <div class="item-bullet">
+          <strong>Why a Balanced Diet Matters:</strong>
+          4 pillars: <em>All-Day Energy</em> (no crashes), <em>Immune Defense</em>, <em>Gut & Serotonin</em>, and <em>Metabolic Longevity</em>.
+        </div>
+        <div class="item-bullet">
+          <strong>The Sustainable 80/20 Rule:</strong>
+          80% whole nutrient-dense foods (vegetables, proteins, whole grains), 20% culinary flexibility without guilt.
+        </div>
+        <div class="item-bullet">
+          <strong>Search Bar & 10 Topic Cards:</strong>
+          Real-time search + filters (Balanced Diet, Macros, Micros, Gut, Timing). Cards have summaries, 💡 Smart Rules, & sources.
+        </div>
+        <div class="item-bullet">
+          <strong>50-25-25 Smart Plate Method:</strong>
+          Interactive plate diagram: 50% Veggies & Fruits, 25% Lean Protein, 25% Complex Carbs, plus hand portion rules.
+        </div>
+        <div class="item-bullet">
+          <strong>Food Label Inspector (5/20 Rule):</strong>
+          Clickable pins decoding serving sizes, calories per serving, hidden sugars, and the 5% (Low) / 20% (High) DV metric.
+        </div>
+        <div class="item-bullet">
+          <strong>Eating Day Timeline:</strong>
+          Chronobiological guide from 7:30 AM morning protein pacing to 7:30 PM screen-free mindful dinner.
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Presentation Cheat Sheet -->
+    <div class="section-box" style="background:#f8fafc; border-color:#cbd5e1; margin-bottom: 0;">
+      <div class="section-title-row">
+        <span class="section-title" style="font-size:10pt;">🎤 3-Point Presentation Script (What to Say to Evaluators)</span>
+      </div>
+      <table class="mini-table">
+        <tr>
+          <td style="width:25%;"><strong>1. The Hook:</strong></td>
+          <td><em>"NutriSmart AI solves diet confusion by pairing biometric AI planning with simple visual rules like the 50-25-25 plate and 80/20 balance."</em></td>
+        </tr>
+        <tr>
+          <td><strong>2. Technical Flow:</strong></td>
+          <td><em>"Built using React 19 and Vite with modular components, localStorage state persistence, instant search, and dynamic responsive CSS."</em></td>
+        </tr>
+        <tr>
+          <td><strong>3. Key Impact:</strong></td>
+          <td><em>"Empowers users across 6 structured pages: from daily tips and macro calculation to personalized meal plans and label literacy."</em></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="footer-note">
+      <span>NutriSmart AI • Master Project Architecture</span>
+      <span>Page 2 of 2 • Localhost URL: <code>http://localhost:5173/</code></span>
+    </div>
+  </div>
+
+</body>
+</html>
